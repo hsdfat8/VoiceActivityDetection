@@ -7,13 +7,9 @@
 DEBUG = -O -DHEXDUMP
 
 #Full duplex:
-CCFLAGS =  -DAUDIO_BLOCKING -DLINUX -DM_LITTLE_ENDIAN -DNEEDED_LINEAR -DLINUX_DSP_SMALL_BUFFER -DHAVE_DEV_RANDOM
 
 CC = gcc -Wall -g # for GNU's gcc compiler
-CELPFLAGS = -fomit-frame-pointer -ffast-math -funroll-loops
-LFLAGS = -lm
-CCFLAGS = -DLINUX_ALSA -DM_LITTLE_ENDIAN
-SOUNDLIB = -lasound 
+
 
 #   Compiler flags
 
@@ -29,37 +25,9 @@ all:	$(PROGRAMS)
 
 SPKROBJS = main.o
 
-#Link
 
-#ifdef SYSTEMROOT
-#Win32    
 main: $(SPKROBJS)  vadlib.o 
-	$(CC) $(SPKROBJS)  vad/libvad.a $(LFLAGS) -lcomctl32 -lwinmm -lws2_32 -o main
-#else
-#   ifeq ($(shell uname), Linux)
-#Linux      
-#ppmain: $(SPKROBJS) audiolib.o cryptolib.o melpelib.o modemlib.o feclib.o vadlib.o
-#	$(CC) $(SPKROBJS) audio/libaudio.a crypto/libcrypto.a melpe/libmelpe.a modem/libmodem.a fec/libfec.a vad/libvad.a  $(LFLAGS) $(SOUNDLIB) -o ppmain
-#   endif
-#endif
-
-
-#	Compression and encryption libraries.  Each of these creates
-#	a place-holder .o file in the main directory (which is not
-#	an actual object file, simply a place to hang a time and
-#	date stamp) to mark whether the library has been built.
-#	Note that if you actually modify a library you'll need to
-#	delete the place-holder or manually make within the library
-#	directory.  This is tacky but it avoids visiting all the
-#	library directories on every build and/or relying on features
-#	in make not necessarily available on all platforms.
-
-
-
-
-vadlib.o:
-	( echo "Building VAD library."; cd vad ; make CC="$(CC) $(CCFLAGS) $(DEBUG) $(CELPFLAGS)" )
-	echo "VAD" >vadlib.o
+	$(CC) $(SPKROBJS)  vad/libvad.a $(LFLAGS) -o vad
 
 
 
@@ -74,7 +42,7 @@ main.o: Makefile main.c
 
 clean:
 	find . -name Makefile.bak -exec rm {} \;
-	rm -f core *.out *.o *.bak $(PROGRAMS) *.shar *.exe *.a
+	del -f core *.out *.o *.bak $(PROGRAMS) *.shar *.exe *.a
 	@for I in $(DIRS); \
 	  do (cd $$I; echo "==>Entering directory `pwd`"; $(MAKE) $@ || exit 1); done
 	

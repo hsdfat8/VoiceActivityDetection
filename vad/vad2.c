@@ -518,7 +518,7 @@ Word16 vad2 (Word16 * farray_ptr, vadState2 * st)
 	for (i = LO_CHAN; i <= HI_CHAN; i++)
 	{
 		ch_enrg_db[i] = fn10Log10(st->Lch_enrg[i], fbits[st->shift_state]);			
-		ch_noise_db = fn10Log10(st->Lch_noise[i], 7);
+		ch_noise_db = fn10Log10(st->Lch_noise[i], FRACTIONAL_BITS_0);
 
 		ch_snr[i] = sub(ch_enrg_db[i], ch_noise_db);						
 
@@ -584,7 +584,7 @@ Word16 vad2 (Word16 * farray_ptr, vadState2 * st)
 			hi1 = add(hi1, 3);			/* 2^3 to compensate for negative SNR */
 			Ltmp1 = L_add(Ltmp1, Pow2(hi1, lo1));
 		}
-		xt = fn10Log10(Ltmp1, 4+3);			/* average by 16, inverse compensation 2^3 */
+		xt = fn10Log10(Ltmp1, 4+4);			/* average by 16, inverse compensation 2^3 */
 
 		/* Estimate long-term "peak" SNR */							
 		if (sub(xt, st->tsnr) > 0)

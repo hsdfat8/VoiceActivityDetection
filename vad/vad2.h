@@ -46,7 +46,7 @@
 #define		MIN_CHAN_ENRG_0		32		/* 0.0625 scaled as 22,9 */
 #define		MIN_NOISE_ENRG_0	32		/* 0.0625 scaled as 22,9 */
 #define		INE_NOISE_0		8192		/* 16.0   scaled as 22,9 */
-#define		FRACTIONAL_BITS_0	6		/* used as input to fn10Log10() */
+#define		FRACTIONAL_BITS_0	9		/* used as input to fn10Log10() */
 
 #define		NOISE_FLOOR_CHAN_1	16		/* 1.0    scaled as 27,4 */
 #define		MIN_CHAN_ENRG_1		1		/* 0.0625 scaled as 27,4 */

@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
             i += vad2(spbuf + 410, &vad)*2;
             i += vad2(spbuf + 460, &vad)*4;
 
-      if (i > 5) //frame is voices: compress it
+      if (i > 6) //frame is voices: compress it
           {
               a = 1;
           }
@@ -105,8 +105,8 @@ int main(int argc, char *argv[])
           else //unvoiced frame: sync packet will be send
           {
               a = 0; //or set silence flag for control blocks
-          }
-      printf("Frame: %d   a = %d   i=%d\n",numfr++,a,i);    
+          }    
+      // printf("Frame: %d   a = %d   i=%d\n",numfr++,a,i);    
       fwrite(&a, sizeof(short), 1, fout);  
     }
 }

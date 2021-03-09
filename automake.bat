@@ -2,4 +2,4 @@ cd vad
 make
 cd..
 make
-copy main.exe C:\Project\voice-compress\BKIC-pairphone\EXE
+copy vad.exe C:\Project\voice-compress\BKIC-pairphone\EXE
